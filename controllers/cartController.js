@@ -4,7 +4,7 @@ const Product =require('../models/productModel');
 
 const addtoCart = async(req,res)=>{
     const{product_id,quantity} = req.body;
-    const user_id = req.user;
+    const user_id = req.user.id;
     
     try{
         const cart = await cartModel.findOne({user_id});
@@ -40,7 +40,7 @@ const addtoCart = async(req,res)=>{
 }
 
 const getCart = async(req,res)=>{
-    const user_id = req.user;
+    const user_id = req.user.id;
     const user = await cartModel.findOne({user_id});
     let subtotal = 0;
     if(user){
@@ -67,7 +67,7 @@ const getCart = async(req,res)=>{
 
 const deleteProducts =async(req,res)=>{
     const{product_id} = req.body;
-    const user_id = req.user;
+    const user_id = req.user.id;
 
     try{
         const user = await cartModel.findOne({user_id});

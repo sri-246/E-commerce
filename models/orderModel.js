@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
     user_id:{
         type:String,
-        required:trusted,
+        require:true,
 
     },
     user_email:{
@@ -23,6 +23,7 @@ const orderSchema = new mongoose.Schema({
     },
     orderDate:{
         type:Date,
+        default:Date.now,
         
     },
     estDate:{
@@ -50,5 +51,5 @@ const orderSchema = new mongoose.Schema({
 
 
 });
-
-module.exports = {orderSchema}
+const orderModel = mongoose.model('order',orderSchema);
+module.exports=orderModel;

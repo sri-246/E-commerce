@@ -6,7 +6,7 @@ const auth = (req,res,next)=>{
     if(!token) return res.status(401).json({error:"Token required"});
     try{
         const decoded = jwt.verify(token,"secret_key");//verifying the token
-        req.user = decoded.id;
+        req.user = decoded;
         next();//moving to next process
     }catch(err){
         res.status(401).json({error:"Invalid Token"});

@@ -56,6 +56,30 @@ console.log(orderDate,estDate)
     }
 };
 
+const getorder=async(req,res)=>{
+    const userid = req.user.id; 
+      const orderDetails = await orderModel.find({ userid });
+      const allProducts = [];
+      for (const order of orderDetails) {
+        for (const product of order.products) {
+          const productDetails = await productModel.findOne({ Id: product.product_id });
+          if (productDetails) {
+            allProducts.push({
+              productid: product.product_id,
+              quantity: product.quantity,
+              delDate: order.delDate,
+              title: productDetails.title, 
+              price: productDetails.price, 
+              image:productDetails.image
+            });
+          } else {
+            console.error("Product not found");
+          }
+        }
+      }
+      console.log(orderDetails);
+  }
 
 
-module.exports = {manageOrder};
+
+module.exports = {manageOrder, getorder};
